@@ -1,0 +1,9 @@
+{
+  "name": "camarero",
+  "version": "0.0.1",
+  "description": "Minimalist static files server",
+  "dependencies": {
+    "socket.io": "~0.9.6",
+    "mime": "~1.2.7"
+  }
+}
