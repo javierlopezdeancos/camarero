@@ -18,5 +18,7 @@ You can run a live example put here in your console in root project
     npm install
     node server.js
 
+![live example]( public/images/readme.gif "live example")
+
 ### Share and improve
 Feel free to share, frok and improve this code, no Pirlo, no party.
