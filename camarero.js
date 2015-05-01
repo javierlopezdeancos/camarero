@@ -56,7 +56,7 @@ module.exports = function () {
     server = http.createServer( function ( request, response ) {
       var filePath,
         absPath;
-      filePath = false;
+      filePath = '';
       if ( request.url == '/' ) {
         filePath = staticsPath + '/index.html';
       } else {
