@@ -8,19 +8,22 @@ module.exports = function () {
     path = require( 'path' ),
     mime = require( 'mime' ),
     cache = {},
-    server;
+    server,
+    httpErrors = {
+      404: 'Error 404: resource not found.'
+    };
 
-  var send404 = function ( response ) {
-    response.writeHead( 404, {
+  var sendError = function ( response, errorNumber ) {
+    response.writeHead( errorNumber, {
       'Content-Type': 'text/plain'
     } );
-    response.write( 'Error 404: resource not found.' );
+    response.write( httpErrors[errorNumber] );
     response.end();
   };
 
   var sendFile = function ( response, filePath, fileContents ) {
     response.writeHead( 200, {
-      'content-type': mime.lookup( path.basename( filePath ) )
+      'Content-Type': mime.lookup( path.basename( filePath ) )
     } );
     response.end( fileContents );
   };
@@ -33,14 +36,14 @@ module.exports = function () {
         if ( exists ) {
           fs.readFile( absPath, function ( err, data ) {
             if ( err ) {
-              send404( response );
+              sendError( response, 404 );
             } else {
               cache[ absPath ] = data;
               sendFile( response, absPath, data );
             }
           } );
         } else {
-          send404( response );
+          sendError( response, 404 );
         }
       } );
     }
